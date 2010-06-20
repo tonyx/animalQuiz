@@ -16,7 +16,7 @@ public class AnimalLearner {
 	private State state;
 
 	public AnimalLearner() {
-		guesser = new Guesser();
+		guesser = new Guesser(new KnowlegeBase("elefante"));
 	
 		state= State.STARTED;
 	}

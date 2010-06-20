@@ -2,6 +2,7 @@ package it.dojo.animal;
 
 public class Guesser {
     public enum YesOrNot {s,n};
+    KnowlegeBase father;
 
 	private KnowlegeBase knowlegeBase;
     private KnowlegeBase rootKnowlegeBase;
@@ -13,22 +14,39 @@ public class Guesser {
 	private String distinguishingQuestion;
 	private String distinguishingAnswer;
 
-	public Guesser() {
-		knowlegeBase = new KnowlegeBase("elefante");
-        rootKnowlegeBase=knowlegeBase;
-	}
+    public Guesser(KnowlegeBase knowlegeBase)
+    {
+        this.knowlegeBase = knowlegeBase;
+    }
+     
+
+//	public Guesser() {
+//		knowlegeBase = new KnowlegeBase("elefante");
+//        rootKnowlegeBase=knowlegeBase;
+//	}
 
 	public void postYesOrNo(YesOrNot answer) {
 		this.currentAnswer = answer;
-
         if (!knowlegeBase.isLeaf()) {
-            if (answer.equals(YesOrNot.s)) knowlegeBase = knowlegeBase.left();
-            else knowlegeBase = knowlegeBase.right();
+            if (answer.equals(YesOrNot.s)) knowlegeBase = knowlegeBase.yesBranch();
+            else knowlegeBase = knowlegeBase.noBranch();
         } else if (answer.equals(YesOrNot.s)) {
             won = true;
         }
-
 	}
+
+
+    public  KnowlegeBase getBranchByDiscriminationValue(YesOrNot yesOrNot)
+    {
+        if (!knowlegeBase.isLeaf()) {
+            if (YesOrNot.s.equals(yesOrNot))
+                return knowlegeBase.yesBranch();
+            else
+                return knowlegeBase.noBranch();
+        }
+        return new KnowlegeBase("se hai questa info c'e' un errore");
+    }
+
 
 	public boolean isLeafNowlegebase() {
         return knowlegeBase.isLeaf();
@@ -62,7 +80,6 @@ public class Guesser {
 
 	public void playAgain() {
         this.knowlegeBase=this.rootKnowlegeBase;
-
 	}
 
 	public void learn() {
@@ -73,9 +90,24 @@ public class Guesser {
 
 		} else {
 			know = new KnowlegeBase(distinguishingQuestion, this.knowlegeBase, new KnowlegeBase(learningAnswer));
-
 		}
-        this.knowlegeBase = know;
+
+        this.knowlegeBase=know;
+        //father = know;
 
 	}
+
+    public String traverse(Guesser.YesOrNot... sequenceYesAndNot)
+    {
+        KnowlegeBase temp = this.knowlegeBase;
+//        for (int i=0;i<sequenceYesAndNot.length;i++) {
+//            if (sequenceYesAndNot[i].equals(YesOrNot.s)) {
+//                temp = this.knowlegeBase.yesBranch();
+//            } else {
+//                temp = this.knowlegeBase.noBranch();
+//            }
+//        }
+        return temp.getAnimal();
+    }
+
 }

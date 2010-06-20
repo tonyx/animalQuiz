@@ -17,6 +17,16 @@ public class KnowlegeBase {
 		isLeaf = true;
 	}
 
+
+    public KnowlegeBase traverse(Guesser.YesOrNot direction)
+    {
+        if (Guesser.YesOrNot.s==direction){
+            return this.yesBranch();
+        }
+        return this.noBranch();
+    }
+
+
 	public KnowlegeBase(String question, KnowlegeBase left, KnowlegeBase right) {
 		this.question = question;
 		this.left = left;
@@ -24,28 +34,34 @@ public class KnowlegeBase {
 		isLeaf = false;
 	}
 
+    public KnowlegeBase getImprovedBase(Guesser.YesOrNot yesOrNot, String discriminatingQuestion, String animal)
+    {
+        KnowlegeBase toReturn;
+        if (yesOrNot.equals(Guesser.YesOrNot.s))
+        {
+            toReturn = new KnowlegeBase(discriminatingQuestion,new KnowlegeBase(animal),this);
+        }  else
+            toReturn = new KnowlegeBase(discriminatingQuestion,this,new KnowlegeBase(animal));
+        return toReturn;
+    }
+
+
 	public String getGuess() {
 		if (isLeaf) return "e' un " + animal + "?";
 		return question;
 	}
-	
-//	public void setGuess(String guess)
-//	{
-//		this.question = guess;
-//	}
 
 	public boolean isLeaf()
 	{
 		return isLeaf;
 	}
-	
-	
 
-	public KnowlegeBase left() {
+
+	public KnowlegeBase yesBranch() {
 		return left;
 	}
 
-	public KnowlegeBase right() {
+	public KnowlegeBase noBranch() {
 		return right;
 	}
 
