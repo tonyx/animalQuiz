@@ -40,7 +40,7 @@ public class Guesser {
 		return currentBase.isLeaf();
 	}
 
-	public String getGues() {
+	public String getGuess() {
 		if (!won) return currentBase.getGuess();
 		return "ho vinto";
 	}

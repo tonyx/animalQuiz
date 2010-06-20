@@ -22,7 +22,7 @@ public class AnimalLearner {
 	}
 
 	public String getMessage() {
-        return guesser.getGues();
+        return guesser.getGuess();
 
         //return "è un elefante?";
 //        return "fake";
