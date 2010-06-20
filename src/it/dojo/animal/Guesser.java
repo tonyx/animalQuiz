@@ -1,47 +1,41 @@
 package it.dojo.animal;
 
 public class Guesser {
-	// String theAnimal;
-	String firstGuess;
+    public enum YesOrNot {s,n};
 
 	private KnowlegeBase knowlegeBase;
-
-	private KnowlegeBase currentBase;
+    private KnowlegeBase rootKnowlegeBase;
 
 	private boolean won = false;
 
-	private String currentAnswer;
+	private YesOrNot currentAnswer;
 	private String learningAnswer;
 	private String distinguishingQuestion;
 	private String distinguishingAnswer;
 
 	public Guesser() {
 		knowlegeBase = new KnowlegeBase("elefante");
-		currentBase = knowlegeBase;
+        rootKnowlegeBase=knowlegeBase;
 	}
 
-	public void postYesOrNo(String answer) {
+	public void postYesOrNo(YesOrNot answer) {
 		this.currentAnswer = answer;
 
-		if (!currentBase.isLeaf()) {
-
-			if (answer.equals("s")) currentBase = currentBase.left();
-			else currentBase = currentBase.right();
-		
-		} else if (answer.equals("s")) {
-			won = true;
-
-		}
+        if (!knowlegeBase.isLeaf()) {
+            if (answer.equals(YesOrNot.s)) knowlegeBase = knowlegeBase.left();
+            else knowlegeBase = knowlegeBase.right();
+        } else if (answer.equals(YesOrNot.s)) {
+            won = true;
+        }
 
 	}
 
 	public boolean isLeafNowlegebase() {
-
-		return currentBase.isLeaf();
+        return knowlegeBase.isLeaf();
 	}
 
 	public String getGuess() {
-		if (!won) return currentBase.getGuess();
+        if (!won) return knowlegeBase.getGuess();
 		return "ho vinto";
 	}
 
@@ -50,7 +44,7 @@ public class Guesser {
 	}
 
 	public String getLearningDistinguishingQuestion() {
-		return "Dammi una domanda per distringuire un " + learningAnswer + " da un " + currentBase.getAnimal();
+        return "Dammi una domanda per distringuire un " + learningAnswer + " da un " + knowlegeBase.getAnimal();
 	}
 
 	public void postLearningDistinguishingQuestion(String question) {
@@ -66,8 +60,8 @@ public class Guesser {
 	}
 
 
-
 	public void playAgain() {
+        this.knowlegeBase=this.rootKnowlegeBase;
 
 	}
 
@@ -81,9 +75,7 @@ public class Guesser {
 			know = new KnowlegeBase(distinguishingQuestion, this.knowlegeBase, new KnowlegeBase(learningAnswer));
 
 		}
-
-		this.knowlegeBase = know;
-		this.currentBase = know;
+        this.knowlegeBase = know;
 
 	}
 }

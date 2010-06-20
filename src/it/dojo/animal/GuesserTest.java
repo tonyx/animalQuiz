@@ -14,7 +14,8 @@ public class GuesserTest {
 		Guesser guesser = new Guesser();
 		String q = guesser.getGuess();
 		assertEquals("e' un elefante?", q);
-		guesser.postYesOrNo("n");
+		//guesser.postYesOrNo("n");
+        guesser.postYesOrNo(Guesser.YesOrNot.n);
 		String learningQuestion = guesser.getWhatAnimalWereYouThinking();
 		assertEquals("A che animale stavi pensando?", learningQuestion);
 		guesser.postAnimalImprovingKnowledge("coniglio");
@@ -34,7 +35,8 @@ public class GuesserTest {
 		Guesser guesser = new Guesser();
 		String q = guesser.getGuess();
 		assertEquals("e' un elefante?", q);
-		guesser.postYesOrNo("n");
+		//guesser.postYesOrNo("n");
+        guesser.postYesOrNo(Guesser.YesOrNot.n);
 		String learningQuestion = guesser.getWhatAnimalWereYouThinking();
 		assertEquals("A che animale stavi pensando?", learningQuestion);
 		guesser.postAnimalImprovingKnowledge("coniglio");
@@ -46,40 +48,119 @@ public class GuesserTest {
 		assertFalse(guesser.isLeafNowlegebase());
 		guesser.playAgain();
 		assertEquals("E'un animale piccolo?", guesser.getGuess());
-		guesser.postYesOrNo("s");
+		//guesser.postYesOrNo("s");
+        guesser.postYesOrNo(Guesser.YesOrNot.s);
 		assertEquals("e' un coniglio?", guesser.getGuess());
-		guesser.postYesOrNo("s");
+		//guesser.postYesOrNo("s");
+        guesser.postYesOrNo(Guesser.YesOrNot.s);
 		assertEquals("ho vinto", guesser.getGuess());
 
 	}
 
-	@Test
+
+
+    @Test
+    public void anotherStepInLearning() {
+
+        Guesser guesser = new Guesser();
+        String q = guesser.getGuess();
+        assertEquals("e' un elefante?", q);
+        //guesser.postYesOrNo("n");
+        guesser.postYesOrNo(Guesser.YesOrNot.n);
+        String learningQuestion = guesser.getWhatAnimalWereYouThinking();
+        assertEquals("A che animale stavi pensando?", learningQuestion);
+        guesser.postAnimalImprovingKnowledge("coniglio");
+        String distQuestion = guesser.getLearningDistinguishingQuestion();
+        assertEquals("Dammi una domanda per distringuire un coniglio da un elefante", distQuestion);
+        guesser.postLearningDistinguishingQuestion("E'un animale piccolo?");
+        guesser.postLearningDistinguishingAnswer("s");
+        guesser.learn();
+        assertFalse(guesser.isLeafNowlegebase());
+
+        guesser.playAgain();
+
+        assertEquals("E'un animale piccolo?", guesser.getGuess());
+        //guesser.postYesOrNo("s");
+        guesser.postYesOrNo(Guesser.YesOrNot.s);
+        assertEquals("e' un coniglio?", guesser.getGuess());
+        //guesser.postYesOrNo("s");
+        guesser.postYesOrNo(Guesser.YesOrNot.n);
+
+        learningQuestion = guesser.getWhatAnimalWereYouThinking();
+        assertEquals("A che animale stavi pensando?", learningQuestion);
+
+        guesser.postAnimalImprovingKnowledge("pesce");
+        distQuestion = guesser.getLearningDistinguishingQuestion();
+
+        assertEquals("Dammi una domanda per distringuire un pesce da un coniglio", distQuestion);
+        guesser.postLearningDistinguishingQuestion("vive nell'acqua?");
+        guesser.postLearningDistinguishingAnswer("s");
+        guesser.learn();
+        guesser.playAgain();
+
+        assertEquals("E'un animale piccolo?", guesser.getGuess());
+        //guesser.postYesOrNo("s");
+        guesser.postYesOrNo(Guesser.YesOrNot.s);
+        assertEquals("e' un coniglio?", guesser.getGuess());
+        //guesser.postYesOrNo("s");
+        guesser.postYesOrNo(Guesser.YesOrNot.n);
+        assertEquals("e' un pesce?", guesser.getGuess());
+        guesser.postYesOrNo(Guesser.YesOrNot.s);
+        assertEquals("ho vinto", guesser.getGuess());
+
+
+
+    }
+
+
+
+
+
+
+
+    @Test
 	public void shouldBeAbleToMangeAConversationalState() {
+//
+//		AnimalLearner learner = new AnimalLearner();
+//		// Guesser guesser = new Guesser();
+//
+//		String message = learner.getMessage();
+//		// guesser.getGuess();
+//
+//
+//		assertEquals("e' un elefante?", message);
+//
+//
+//		// guesser.postYesOrNo("n");
+//		learner.sendMessage("n");
+//
+//		// String learningQuestion = guesser.getWhatAnimalWereYouThinking();
+//		message = learner.getMessage();
+//
+//
+////		assertEquals("a che animale stavi pensando?",message);
+//
+//
+//		learner.sendMessage("coniglio");
+//		// guesser.postAnimalImprovingKnowledge("coniglio");
+//		
 
-		AnimalLearner learner = new AnimalLearner();
-		// Guesser guesser = new Guesser();
 
-		String message = learner.getMessage();
-		// guesser.getGuess();
 
-		
-		assertEquals("e' un elefante?", message);
 
-		
-		// guesser.postYesOrNo("n");		
-		learner.sendMessage("n");
 
-		// String learningQuestion = guesser.getWhatAnimalWereYouThinking();
-		message = learner.getMessage();
-		
-		
-//		assertEquals("a che animale stavi pensando?",message);
-		
 
-		learner.sendMessage("coniglio");
-		// guesser.postAnimalImprovingKnowledge("coniglio");
-		
-		
+
+
+
+
+
+
+
+
+
+
+
 
 		
 		//

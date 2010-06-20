@@ -29,8 +29,8 @@ public class AnimalLearner {
 		//return state.getMessage();
 	}
 
-	public void sendMessage(String message) {
-		guesser.postYesOrNo(message);
-	}
+//	public void sendMessage(String message) {
+//		guesser.postYesOrNo(message);
+//	}
 
 }
